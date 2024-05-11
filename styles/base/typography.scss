@@ -1,0 +1,35 @@
+@import "../abstracts/variables";
+
+@font-face {
+  font-family: 'JetBrainsMono-Bold';
+  font-weight: normal;
+  font-style: normal;
+  src: url('/fonts/static/JetBrainsMono-Bold.ttf') format('truetype');
+}
+
+$font-family: JetBrainsMono-Bold;
+
+h1, h2, body {
+  font-family: $font-family;
+  color: white;
+}
+
+h1 {
+  font-size: 32px;
+  line-height: 43px;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 31px;
+}
+
+body {
+  font-size: 24px;
+  line-height: 23px;
+}
+
+.text-disabled {
+  color: $color-almost-white;
+  opacity: 0.25;
+}

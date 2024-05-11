@@ -1,0 +1,14 @@
+@import "../abstracts/variables";
+
+.far-background {
+  background-color: $color-very-dark-grey;
+}
+
+.background {
+  background-color: $color-dark-grey;
+  padding: $padding-vertical $padding-horizontal;
+}
+
+.central-column {
+  width: clamp(343px, 540px, 540px);
+}

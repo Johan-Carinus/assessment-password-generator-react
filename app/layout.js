@@ -1,4 +1,4 @@
-import "@/styles/globals.scss";
+import "@/styles/main.scss";
 
 export const metadata = {
   title: "Password Generator",
@@ -8,7 +8,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className='far-background'>{children}</body>
     </html>
   );
 }
