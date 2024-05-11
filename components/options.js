@@ -29,7 +29,8 @@ export function Options() {
             <div className='medium-spacer' />
             <CustomCheckbox labelText='Include Symbols'/>
             <div className='large-spacer'/>
-            <StrengthState />
+            <StrengthState strengthState={'Strong'} />
+            <div className='large-spacer'/>
             <IconButton
                 buttonText='Generate'
                 icon={{

@@ -1,1 +1,53 @@
 @import "../abstracts/variables";
+
+@mixin define-block($block-color: null) {
+  @if $block-color == null {
+    border: $border-thickness solid $color-almost-white ;
+    background: transparent;
+  } @else {
+    border: $border-thickness solid $block-color;
+    background-color: $block-color;
+  }
+  height: 24px;
+  width: 6px;
+  margin-left: 8px;
+}
+
+.strength-state {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: $spacing-medium;
+}
+
+.strength-state .strength {
+  color: $color-grey;
+}
+
+.strength-state h2 {
+  margin-left: 8px;
+  margin-right: 8px;
+  flex-grow: 1;
+  text-align: right;
+}
+
+.strength-state .green-block {
+  @include define-block($color-neon-green);
+}
+
+.strength-state .yellow-block {
+  @include define-block($color-yellow);
+}
+
+.strength-state .orange-block {
+  @include define-block($color-orange);
+}
+
+.strength-state .red-block {
+  @include define-block($color-red);
+}
+
+.strength-state .outline-block {
+  @include define-block();
+}
+

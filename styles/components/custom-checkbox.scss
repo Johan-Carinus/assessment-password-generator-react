@@ -5,7 +5,7 @@ $checkbox-size: 20px;
 .custom-checkbox {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .custom-checkbox label {
