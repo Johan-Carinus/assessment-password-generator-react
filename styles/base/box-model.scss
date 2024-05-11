@@ -1,5 +1,17 @@
 @import "../abstracts/variables";
 
-.marginLeft {
+.margin-left {
   margin-left: $padding-horizontal;
+}
+
+.margin-top {
+  margin-top: $padding-vertical;
+}
+
+.standard-padding {
+  padding: $padding-vertical $padding-horizontal;
+}
+
+.big-margin-top {
+  margin-top: clamp(64px, 133px, 133px);
 }

@@ -1,4 +1,10 @@
 @import "base/reset";
 @import "base/typography";
 @import "base/flex";
+@import "base/box-model";
+@import "base/colors";
 @import "pages/main-page";
+@import "components/top-title";
+@import "components/slider";
+@import "components/checkbox-options";
+@import "components/generate-button";

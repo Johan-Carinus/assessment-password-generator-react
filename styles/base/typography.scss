@@ -9,7 +9,7 @@
 
 $font-family: JetBrainsMono-Bold;
 
-h1, h2, body {
+h1, h2, body, p {
   font-family: $font-family;
   color: white;
 }
@@ -24,12 +24,8 @@ h2 {
   line-height: 31px;
 }
 
-body {
-  font-size: 24px;
+body, p {
+  font-size: 18px;
   line-height: 23px;
 }
 
-.text-disabled {
-  color: $color-almost-white;
-  opacity: 0.25;
-}

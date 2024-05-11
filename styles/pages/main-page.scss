@@ -6,9 +6,11 @@
 
 .background {
   background-color: $color-dark-grey;
-  padding: $padding-vertical $padding-horizontal;
 }
 
 .central-column {
   width: clamp(343px, 540px, 540px);
+  height: clamp(604px, 828px, 828px);
+  margin-left: $margin-overall;
+  margin-right: $margin-overall;
 }

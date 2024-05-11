@@ -1,5 +1,7 @@
 export function TopTitle({text}) {
     return (
-        <div className={}>{text}</div>
+        <div className='flex-centered top-title-height'>
+            <h2 className='text-dark'>{text}</h2>
+        </div>
     );
 }

@@ -1,0 +1,18 @@
+@import "../abstracts/variables";
+
+.text-disabled {
+  color: $color-almost-white;
+  opacity: 0.25;
+}
+
+.text-almost-white {
+  color: $color-almost-white;
+}
+
+.text-dark {
+  color: $color-grey;
+}
+
+.text-green {
+  color: $color-neon-green
+}
