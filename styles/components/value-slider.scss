@@ -1,0 +1,85 @@
+@import '../abstracts/variables';
+
+@mixin round-slider-thumb($border-color, $background-color, $size, $border-thickness) {
+  border: $border-thickness solid $border-color;
+  height: $size;
+  width: $size;
+  border-radius: $size;
+  background: $background-color;
+  cursor: pointer;
+}
+
+@mixin slider-track($background-color, $height) {
+  background: linear-gradient(
+                  to right,
+                  $color-neon-green 0%,
+                  $color-neon-green var(--slide-position),
+                  $color-very-dark-grey var(--slide-position),
+                  $color-very-dark-grey 100%
+  );
+  height: $height;
+}
+
+$thumb-height: 28px;
+$track-height: 8px;
+$outline-thickness: 2px;
+
+.value-slider {
+  --slide-position: 50%;
+}
+
+.value-slider .text-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.value-slider .text-title {
+  flex-grow: 1;
+}
+
+.value-slider .text-counter {
+  color: $color-neon-green;
+}
+
+.value-slider .slide {
+  height: $thumb-height;
+  padding-top: $spacing-small;
+}
+
+.value-slider input[type=range] {
+  -webkit-appearance: none;
+  cursor: pointer;
+  width: 100%;
+  background: transparent;
+}
+
+.value-slider input[type="range"]::-webkit-slider-runnable-track {
+  @include slider-track($color-very-dark-grey, $track-height);
+}
+
+.value-slider input[type="range"]::-moz-range-track {
+  @include slider-track($color-very-dark-grey, $track-height);
+}
+
+.value-slider input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $outline-thickness);
+  margin-top: calc(($track-height/2) - ($thumb-height/2));
+}
+
+.value-slider input[type=range]:hover::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $outline-thickness);
+  margin-top: calc(($track-height/2) - ($thumb-height/2));
+}
+
+.value-slider input[type=range]::-moz-range-thumb {
+  @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $outline-thickness);
+}
+
+.value-slider input[type=range]:hover::-moz-range-thumb {
+  @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $outline-thickness);
+}
+
+// TODO: Focus styling https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/
