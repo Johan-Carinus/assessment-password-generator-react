@@ -9,9 +9,9 @@
 
 $font-family: JetBrainsMono-Bold;
 
-h1, h2, body, p {
+h1, h2, body {
   font-family: $font-family;
-  color: white;
+  color: $color-almost-white;
 }
 
 h1 {
@@ -24,8 +24,11 @@ h2 {
   line-height: 31px;
 }
 
-body, p {
+body {
   font-size: 18px;
   line-height: 23px;
 }
 
+header h2 {
+  text-align: center;
+}

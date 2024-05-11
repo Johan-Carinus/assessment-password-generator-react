@@ -5,7 +5,7 @@ import {GenerateButton} from "@/components/generate-button";
 
 export function Options() {
     return (
-        <div className='background margin-top standard-padding'>
+        <div className='options background-standard'>
             <Slider />
             <CheckboxOptions />
             <StrengthIndicator />

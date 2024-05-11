@@ -2,7 +2,7 @@ export function Slider() {
     return (
         <div>
             <div className='row-flex'>
-                <p className='flex-grow-1 text-almost-white'>Character Length</p>
+                <p className='flex-grow-1'>Character Length</p>
                 <h1 className='text-green'>10</h1>
             </div>
             <div className="slidecontainer">

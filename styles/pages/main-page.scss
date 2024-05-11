@@ -1,16 +1,20 @@
 @import "../abstracts/variables";
 
-.far-background {
-  background-color: $color-very-dark-grey;
+header {
+  padding-top: 133px;
+  padding-bottom: 31px;
 }
 
-.background {
-  background-color: $color-dark-grey;
-}
-
-.central-column {
+body {
   width: clamp(343px, 540px, 540px);
-  height: clamp(604px, 828px, 828px);
-  margin-left: $margin-overall;
-  margin-right: $margin-overall;
+  padding-left: $spacing-small;
+  padding-right: $spacing-small;
+  padding-bottom: $spacing-small;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.medium-spacer {
+  height: $spacing-medium;
+  width: 100%;
 }
