@@ -5,7 +5,7 @@
   height: $size;
   width: $size;
   border-radius: $size;
-  background: $background-color;
+  background-color: $background-color;
   cursor: pointer;
 }
 
@@ -22,7 +22,6 @@
 
 $thumb-height: 28px;
 $track-height: 8px;
-$outline-thickness: 2px;
 
 .value-slider {
   --slide-position: 50%;
@@ -64,22 +63,22 @@ $outline-thickness: 2px;
 
 .value-slider input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $outline-thickness);
+  @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $border-thickness);
   margin-top: calc(($track-height/2) - ($thumb-height/2));
 }
 
 .value-slider input[type=range]:hover::-webkit-slider-thumb {
   -webkit-appearance: none;
-  @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $outline-thickness);
+  @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $border-thickness);
   margin-top: calc(($track-height/2) - ($thumb-height/2));
 }
 
 .value-slider input[type=range]::-moz-range-thumb {
-  @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $outline-thickness);
+  @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $border-thickness);
 }
 
 .value-slider input[type=range]:hover::-moz-range-thumb {
-  @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $outline-thickness);
+  @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $border-thickness);
 }
 
 // TODO: Focus styling https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/

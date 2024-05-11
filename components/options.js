@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {ValueSlider} from "@/components/value-slider";
-import {CheckboxOptions} from "@/components/checkbox-options";
 import {StrengthIndicator} from "@/components/strength-indicator";
 import {GenerateButton} from "@/components/generate-button";
+import {CustomCheckbox} from "@/components/custom-checkbox";
 
 export function Options() {
     const [passwordLen, setPasswordLen] = useState(10);
@@ -21,7 +21,14 @@ export function Options() {
                 handleOnChange={handleSliderChange}
             />
             <div className='large-spacer'/>
-            <CheckboxOptions />
+            <CustomCheckbox labelText='Include Uppercase Letters'/>
+            <div className='medium-spacer' />
+            <CustomCheckbox labelText='Include Lowercase Letters'/>
+            <div className='medium-spacer' />
+            <CustomCheckbox labelText='Include Numbers'/>
+            <div className='medium-spacer' />
+            <CustomCheckbox labelText='Include Symbols'/>
+            <div className='large-spacer'/>
             <StrengthIndicator />
             <GenerateButton />
         </div>

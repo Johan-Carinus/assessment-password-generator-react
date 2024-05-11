@@ -1,0 +1,34 @@
+@import "../abstracts/variables";
+
+$checkbox-size: 20px;
+
+.custom-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.custom-checkbox label {
+  margin-left: $spacing-medium;
+  flex-grow: 1;
+}
+
+.custom-checkbox input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: $checkbox-size;
+  width: $checkbox-size;
+  cursor: pointer;
+  background: transparent;
+  border: $border-thickness solid $color-almost-white;
+  margin: 0;
+}
+
+.custom-checkbox input[type=checkbox]:checked {
+  background-image: url('/images/icon-check.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: $color-neon-green;
+  border: 0;
+}
