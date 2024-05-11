@@ -9,7 +9,7 @@
 
 $font-family: JetBrainsMono-Bold;
 
-h1, h2, body {
+h1, h2, body, button {
   font-family: $font-family;
   color: $color-almost-white;
 }
@@ -24,7 +24,7 @@ h2 {
   line-height: 31px;
 }
 
-body {
+body, button {
   font-size: 18px;
   line-height: 23px;
 }

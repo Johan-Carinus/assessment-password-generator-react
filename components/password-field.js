@@ -24,6 +24,7 @@ export function PasswordField({password}) {
                 alt={copyLogoAltText}
                 width={21}
                 height={24}
+                priority={true}
             />
         </div>
     );

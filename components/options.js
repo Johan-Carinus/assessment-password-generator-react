@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {ValueSlider} from "@/components/value-slider";
-import {StrengthIndicator} from "@/components/strength-indicator";
-import {GenerateButton} from "@/components/generate-button";
+import {StrengthState} from "@/components/strength-state";
+import {IconButton} from "@/components/icon-button";
 import {CustomCheckbox} from "@/components/custom-checkbox";
 
 export function Options() {
@@ -29,8 +29,15 @@ export function Options() {
             <div className='medium-spacer' />
             <CustomCheckbox labelText='Include Symbols'/>
             <div className='large-spacer'/>
-            <StrengthIndicator />
-            <GenerateButton />
+            <StrengthState />
+            <IconButton
+                buttonText='Generate'
+                icon={{
+                    path: '/images/icon-arrow-right.svg',
+                    width: 12,
+                    height: 12,
+                }}
+            />
         </div>
     );
 }

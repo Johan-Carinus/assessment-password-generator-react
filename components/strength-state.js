@@ -1,4 +1,4 @@
-export function StrengthIndicator() {
+export function StrengthState() {
     return (
         <div className='far-background row-flex'>
             <div className='flex-grow-1'>STRENGTH</div>

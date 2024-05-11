@@ -1,0 +1,40 @@
+@import "../abstracts/variables";
+
+.icon-button {
+  --icon-path: url('');
+}
+
+.icon-button button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 65px;
+  background-color: $color-neon-green;
+  color: $color-dark-grey;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.icon-button button:hover {
+  background: transparent;
+  border: $border-thickness solid $color-neon-green;
+  color: $color-neon-green;
+}
+
+.icon-button button .icon-box {
+  background-color: $color-dark-grey;
+  -webkit-mask-image: var(--icon-path);
+  mask-image: var(--icon-path);
+  -webkit-mask-repeat: no-repeat; /* Prevent mask image from repeating (WebKit browsers) */
+  mask-repeat: no-repeat; /* Prevent mask image from repeating */
+  -webkit-mask-position: center;
+  mask-position: center;
+  margin-left: $spacing-medium;
+}
+
+.icon-button button:hover .icon-box {
+  background-color: $color-neon-green; /* Background color of the element */
+}
