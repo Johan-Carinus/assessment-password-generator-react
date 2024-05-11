@@ -1,0 +1,51 @@
+@import "variables";
+
+@font-face {
+  font-family: 'JetBrainsMono-Bold';
+  font-weight: normal;
+  font-style: normal;
+  src: url('/fonts/static/JetBrainsMono-Bold.ttf') format('truetype');
+}
+
+html {
+  background-color: $color-very-dark-grey;
+}
+
+body {
+  margin: 0;
+}
+
+.heading-large {
+  font-family: $font-family;
+  color: white;
+  font-size: 32px;
+}
+
+.heading-large-line {
+  line-height: 43px;
+}
+
+.heading-medium {
+  font-family: $font-family;
+  color: white;
+  font-size: 24px;
+}
+
+.heading-medium-line {
+  line-height: 31px;
+}
+
+.body-text {
+  font-family: $font-family;
+  color: white;
+  font-size: 24px;
+}
+
+.horizontal-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
