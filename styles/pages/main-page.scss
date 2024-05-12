@@ -6,7 +6,10 @@ header {
 }
 
 body {
-  width: clamp(343px, 540px, 540px);
+  // TODO: Fix styling on small screeens
+  width: calc(100% - ($spacing-small*2));
+  max-width: 540px;
+  min-width: 343px;
   padding-left: $spacing-small;
   padding-right: $spacing-small;
   padding-bottom: $spacing-small;

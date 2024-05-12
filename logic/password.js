@@ -1,8 +1,14 @@
+const passwordRatingTable = [
+    (10n ** 8n),    // Too Weak
+    (10n ** 12n),   // Weak
+    (10n ** 16n)    // Medium
+    // Bigger = Strong
+];
+
 const lowercaseRange = [97, 122];
 const uppercaseRange = [65, 90];
 const numberRange = [48, 57];
 const specialCharacterRange = [33, 47, 58, 64, 91, 96, 123, 126];
-const charactersToEscape = [34, 39, 92];
 
 function unfoldCharacterRange(range) {
     const characters = [];
@@ -16,6 +22,35 @@ function unfoldCharacterRange(range) {
         }
     }
     return characters;
+}
+
+const lowercaseCharacters = unfoldCharacterRange(lowercaseRange);
+const uppercaseCharacters = unfoldCharacterRange(uppercaseRange);
+const numberCharacters = unfoldCharacterRange(numberRange);
+const specialCharacters = unfoldCharacterRange(specialCharacterRange);
+
+function setUpCharacterPool(useLowerCase, useUpperCase, useNumbers, useSymbols) {
+    const characterPool = [];
+
+    if (useLowerCase) {
+        characterPool.push(lowercaseCharacters);
+    }
+    if (useUpperCase) {
+        characterPool.push(uppercaseCharacters);
+    }
+    if (useNumbers) {
+        characterPool.push(numberCharacters);
+    }
+    if (useSymbols) {
+        characterPool.push(specialCharacters);
+    }
+
+    // Default fallback if no option selected
+    if (characterPool.length === 0) {
+        characterPool.push(lowercaseCharacters);
+    }
+
+    return characterPool;
 }
 
 function generateCandidate(length, characterPool) {
@@ -35,27 +70,14 @@ function generateCandidate(length, characterPool) {
 }
 
 export async function generatePassword(length, useLowerCase, useUpperCase, useNumbers, useSymbols) {
-    const characterPool = [];
-
-    if (useLowerCase) {
-        characterPool.push(unfoldCharacterRange(lowercaseRange));
-    }
-    if (useUpperCase) {
-        characterPool.push(unfoldCharacterRange(uppercaseRange));
-    }
-    if (useNumbers) {
-        characterPool.push(unfoldCharacterRange(numberRange));
-    }
-    if (useSymbols) {
-        characterPool.push(unfoldCharacterRange(specialCharacterRange));
-    }
-    //TODO: Add default if nothing is selected
+    const characterPool = setUpCharacterPool(useLowerCase, useUpperCase, useNumbers, useSymbols);
 
     let isValidCandidate = false;
     let candidate;
     while (!isValidCandidate) {
         let isValid = true;
         candidate = generateCandidate(length, characterPool);
+        console.log(characterPool);
         for (const countElement of candidate.setCount) {
             if (countElement <= 0) {
                 isValid = false;
@@ -69,55 +91,22 @@ export async function generatePassword(length, useLowerCase, useUpperCase, useNu
 }
 
 export function ratePasswordCriteria(length, useLowerCase, useUpperCase, useNumbers, useSymbols) {
-    // TODO: Revisit this
-    const ratingTable = {
-        1: {
-            15: 0,
-            20: 1,
-        },
-        2: {
-            10: 0,
-            15: 1,
-            20: 2,
-        },
-        3: {
-            5: 0,
-            10: 1,
-            15: 2,
-            20: 3,
-        },
-        4: {
-            0: 0,
-            5: 1,
-            10: 2,
-            15: 3,
-        },
-    };
+    const characterPool = setUpCharacterPool(useLowerCase, useUpperCase, useNumbers, useSymbols);
 
-    let combo = 0;
-    if (useLowerCase) {
-        combo++;
+    let characterVariations = 0;
+    for (const characterPoolElement of characterPool) {
+        characterVariations += characterPoolElement.length;
     }
-    if (useUpperCase) {
-        combo++;
-    }
-    if (useNumbers) {
-        combo++;
-    }
-    if (useSymbols) {
-        combo++;
-    }
+    const passwordVariations = BigInt(characterVariations) ** BigInt(length);
 
-    // TODO: Polish this
-    const strengthRatingRange = ratingTable['' + combo];
-    for (const strengthRatingRangeKey in strengthRatingRange) {
-        console.log(strengthRatingRange['' + strengthRatingRangeKey])
-        if(length > parseInt(strengthRatingRangeKey)) {
-            continue;
+    let rating = 0;
+    while (rating<passwordRatingTable.length) {
+        if (passwordVariations <= passwordRatingTable[rating]) {
+            return rating;
         } else {
-            return strengthRatingRange['' + strengthRatingRangeKey];
+            rating++;
         }
     }
 
-    return 3;
+    return rating;
 }
