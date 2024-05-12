@@ -1,14 +1,25 @@
-import {useState} from "react";
 import {ValueSlider} from "@/components/value-slider";
 import {StrengthState} from "@/components/strength-state";
 import {IconButton} from "@/components/icon-button";
 import {CustomCheckbox} from "@/components/custom-checkbox";
+import {generatePassword} from "@/logic/password";
+import {useState} from "react";
 
-export function Options() {
-    const [passwordLen, setPasswordLen] = useState(10);
+export function Options({onGeneratePassword}) {
+    const [passwordLength, setPasswordLength] = useState(10);
+    const [shouldIncludeUpperCase, setShouldIncludeUpperCase] = useState(false);
+    const [shouldIncludeLowerCase, setShouldIncludeLowerCase] = useState(false);
+    const [shouldIncludeNumbers, setShouldIncludeNumbers] = useState(false);
+    const [shouldIncludeSymbols, setShouldIncludeSymbols] = useState(false);
 
-    function handleSliderChange(i) {
-        setPasswordLen(i);
+    function genPwd() {
+        generatePassword(
+            passwordLength,
+            shouldIncludeLowerCase,
+            shouldIncludeUpperCase,
+            shouldIncludeNumbers,
+            shouldIncludeSymbols
+        ).then((password) => onGeneratePassword(password));
     }
 
     return (
@@ -17,19 +28,37 @@ export function Options() {
                 title='Character Length'
                 minValue='1'
                 maxValue='20'
-                currentValue={passwordLen}
-                handleOnChange={handleSliderChange}
+                currentValue={passwordLength}
+                onSlide={setPasswordLength}
             />
             <div className='large-spacer'/>
-            <CustomCheckbox labelText='Include Uppercase Letters'/>
+            <CustomCheckbox
+                labelText='Include Uppercase Letters'
+                onCheckChange={setShouldIncludeUpperCase}
+            />
             <div className='medium-spacer' />
-            <CustomCheckbox labelText='Include Lowercase Letters'/>
+            <CustomCheckbox
+                labelText='Include Lowercase Letters'
+                onCheckChange={setShouldIncludeLowerCase}
+            />
             <div className='medium-spacer' />
-            <CustomCheckbox labelText='Include Numbers'/>
+            <CustomCheckbox
+                labelText='Include Numbers'
+                onCheckChange={setShouldIncludeNumbers}
+            />
             <div className='medium-spacer' />
-            <CustomCheckbox labelText='Include Symbols'/>
+            <CustomCheckbox
+                labelText='Include Symbols'
+                onCheckChange={setShouldIncludeSymbols}
+            />
             <div className='large-spacer'/>
-            <StrengthState strengthState={'Strong'} />
+            <StrengthState
+                length={passwordLength}
+                lowercase={shouldIncludeLowerCase}
+                uppercase={shouldIncludeUpperCase}
+                symbols={shouldIncludeSymbols}
+                numbers={shouldIncludeNumbers}
+            />
             <div className='large-spacer'/>
             <IconButton
                 buttonText='Generate'
@@ -38,6 +67,7 @@ export function Options() {
                     width: 12,
                     height: 12,
                 }}
+                onClick={genPwd}
             />
         </div>
     );

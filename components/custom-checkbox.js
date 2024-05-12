@@ -1,9 +1,13 @@
-export function CustomCheckbox({labelText}) {
-
+export function CustomCheckbox({labelText, onCheckChange}) {
     return (
         <div className='custom-checkbox'>
-            <input type='checkbox'/>
-            <label>{labelText}</label>
+            <input
+                type='checkbox'
+                onInput={(e) => onCheckChange(e.target.checked)}
+            />
+            <label>
+                {labelText}
+            </label>
         </div>
     );
 }

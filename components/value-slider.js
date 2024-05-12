@@ -1,10 +1,4 @@
-export function ValueSlider({title, minValue, maxValue, currentValue, handleOnChange}) {
-    function onInputChange(event) {
-        const value = event.target.value;
-        handleOnChange(value);
-
-    }
-
+export function ValueSlider({title, minValue, maxValue, currentValue, onSlide}) {
     function calculateSliderPercentage() {
         const top = maxValue - minValue;
         const adjustedCurrent = currentValue - minValue;
@@ -12,11 +6,22 @@ export function ValueSlider({title, minValue, maxValue, currentValue, handleOnCh
         return `${percent}%`;
     }
 
+    const sliderStyle = {
+        '--slide-position': calculateSliderPercentage()
+    }
+
     return (
-        <div style={{'--slide-position': calculateSliderPercentage()}} className='value-slider'>
+        <div
+            style={sliderStyle}
+            className='value-slider'
+        >
             <div className='text-row'>
-                <div className='text-title'>{title}</div>
-                <h1 className='text-counter'>{currentValue}</h1>
+                <div className='text-title'>
+                    {title}
+                </div>
+                <h1 className='text-counter'>
+                    {currentValue}
+                </h1>
             </div>
             <div className='slide'>
                 <input
@@ -24,7 +29,7 @@ export function ValueSlider({title, minValue, maxValue, currentValue, handleOnCh
                     min={minValue}
                     max={maxValue}
                     defaultValue={currentValue} // TODO: Check that this doesn't cause performance issues
-                    onInput={onInputChange}
+                    onInput={(e) => onSlide(e.target.value)}
                 />
             </div>
         </div>
