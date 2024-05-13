@@ -1,12 +1,7 @@
 @import "../abstracts/variables";
 
-header {
-  padding-top: 133px;
-  padding-bottom: 31px;
-}
-
 body {
-  // TODO: Fix styling on small screeens
+  // TODO: Fix styling on small screens
   width: calc(100% - ($spacing-small*2));
   max-width: 540px;
   min-width: 343px;
@@ -15,14 +10,4 @@ body {
   padding-bottom: $spacing-small;
   margin-left: auto;
   margin-right: auto;
-}
-
-.medium-spacer {
-  height: $spacing-medium;
-  width: 100%;
-}
-
-.large-spacer {
-  height: $spacing-large;
-  width: 100%;
 }

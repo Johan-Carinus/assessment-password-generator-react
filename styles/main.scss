@@ -2,9 +2,11 @@
 @import "base/typography";
 @import "base/colors";
 @import "pages/main-page";
+@import "components/password-generator";
 @import "components/password-field";
-@import "components/options";
+@import "components/password-options";
 @import "components/value-slider";
 @import "components/custom-checkbox";
 @import "components/icon-button";
 @import "components/strength-state";
+@import "components/spacer";

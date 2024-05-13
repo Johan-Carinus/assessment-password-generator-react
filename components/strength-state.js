@@ -1,36 +1,55 @@
-import {ratePasswordCriteria} from "@/logic/password";
+import {ratePasswordCriteria} from "@/logic/password-engine";
 
-const strengthText = [
+const PRIMARY_CLASS = 'strength-state';
+const STRENGTH_TEXT = [
     'Too Weak!',
     'Weak',
     'Medium',
     'Strong',
 ];
-const classText = [
+const BLOCK_INDICATOR_CLASS = [
     'red-block',
     'orange-block',
     'yellow-block',
     'green-block',
 ];
-const maxRating = strengthText.length - 1;
+const MAX_DISPLAYABLE_STRENGTH = STRENGTH_TEXT.length - 1;
 
-export function StrengthState({length, uppercase, lowercase, numbers, symbols}) {
+/**
+ * Component that is used to visually indicate the strength of a potential password in discrete levels based on certain
+ * input criteria.
+ *
+ * @param length The required length of the password.
+ * @param uppercase Should the password contain uppercase characters.
+ * @param lowercase Should the password contain lowercase characters.
+ * @param numbers Should the password contain number characters.
+ * @param symbols Should the password contain special symbol characters.
+ *
+ * @returns {JSX.Element}
+ */
+export default function StrengthState({length, uppercase, lowercase, numbers, symbols}) {
     let strengthRating = ratePasswordCriteria(length, lowercase, uppercase, numbers, symbols);
-    if (strengthRating > maxRating) {
-        strengthRating = maxRating;
+    if (strengthRating > MAX_DISPLAYABLE_STRENGTH) {
+        strengthRating = MAX_DISPLAYABLE_STRENGTH;
     }
-    let blockClasses = Array.from({ length: 4 }, () => 'outline-block');
-    for (let i = 0; i < strengthRating+1; i++) {
-        blockClasses[i] = classText[strengthRating];
-    }
+
+    let blocks = new Array(4).fill(0)
+        .map((className, index) => {
+            if (index <= strengthRating) {
+                return BLOCK_INDICATOR_CLASS[strengthRating];
+            } else {
+                return 'outline-block'
+            }
+        })
+        .map((className, index) => (
+            <div key={index} className={className}/>
+        ));
+
     return (
-        <div className='strength-state background-dark'>
+        <div className={`${PRIMARY_CLASS} background-dark`}>
             <div className='strength'>STRENGTH</div>
-            <h2>{strengthText[strengthRating].toUpperCase()}</h2>
-            <div className={blockClasses[0]}></div>
-            <div className={blockClasses[1]}></div>
-            <div className={blockClasses[2]}></div>
-            <div className={blockClasses[3]}></div>
+            <h2>{STRENGTH_TEXT[strengthRating].toUpperCase()}</h2>
+            {blocks}
         </div>
     );
 }

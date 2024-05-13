@@ -1,0 +1,17 @@
+@import "../abstracts/variables";
+
+.spacer {
+  width: 100%;
+}
+
+.spacer.small {
+  height: $spacing-small;
+}
+
+.spacer.medium {
+  height: $spacing-medium;
+}
+
+.spacer.large {
+  height: $spacing-large;
+}
