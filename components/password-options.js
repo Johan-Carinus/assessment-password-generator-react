@@ -39,8 +39,6 @@ export default function PasswordOptions({onGeneratePassword}) {
     /**
      * Calculates how many of the 'shouldInclude' group are selected.
      *
-     * @param currentState The current checked state of the checkbox.
-     *
      * @returns {number} The number of checkboxes selected.
      */
     function selectionCount() {
@@ -64,8 +62,9 @@ export default function PasswordOptions({onGeneratePassword}) {
         return currentState === true && checkboxesSelected === 1
     }
 
+    const numSelected = selectionCount();
     let allowedPasswordLength;
-    if (passwordLength < selectionCount()) {
+    if (passwordLength < numSelected) {
         allowedPasswordLength = selectionCount();
     } else {
         allowedPasswordLength = passwordLength;
@@ -110,7 +109,7 @@ export default function PasswordOptions({onGeneratePassword}) {
             />
             <Spacer primarySpacerType={SPACER_TYPE.LARGE}/>
             <StrengthState
-                length={passwordLength}
+                length={allowedPasswordLength}
                 lowercase={shouldIncludeLowerCase}
                 uppercase={shouldIncludeUpperCase}
                 symbols={shouldIncludeSymbols}

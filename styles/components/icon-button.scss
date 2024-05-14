@@ -14,7 +14,7 @@ $icon-size: calc($font-size-body * 0.7);
   width: 100%;
   padding: $spacing-small-medium 0;
   background-color: $color-neon-green;
-  border: none;
+  border: $border-thickness solid $color-neon-green;
   cursor: pointer;
 }
 
