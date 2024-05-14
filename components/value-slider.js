@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 
 const PRIMARY_CLASS = 'value-slider';
 
@@ -15,6 +15,7 @@ const PRIMARY_CLASS = 'value-slider';
  */
 export default function ValueSlider({title, minValue, maxValue, currentValue, onSlide}) {
     const [isTouched, setIsTouched] = useState(false);
+    const slideRef = useRef(null);
 
     /**
      * Calculate the exact percentage of the slider that is currently filled by the selected value.
@@ -49,6 +50,7 @@ export default function ValueSlider({title, minValue, maxValue, currentValue, on
             </div>
             <div className='slide'>
                 <input
+                    ref={slideRef}
                     className={isTouchedClass}
                     type='range'
                     min={minValue}
@@ -57,6 +59,7 @@ export default function ValueSlider({title, minValue, maxValue, currentValue, on
                     onInput={(e) => onSlide(e.target.value)}
                     onTouchStart={() => {setIsTouched(true)}}
                     onTouchEnd={() => {setIsTouched(false)}}
+                    onClick={() => slideRef.current.blur()}
                 />
             </div>
         </div>

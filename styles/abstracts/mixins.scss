@@ -1,0 +1,4 @@
+@mixin focus-outline($thickness, $color) {
+  outline: $thickness solid $color;
+  outline-offset: $thickness;
+}

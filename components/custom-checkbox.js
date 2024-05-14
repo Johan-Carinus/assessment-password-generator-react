@@ -1,3 +1,5 @@
+import {useRef} from 'react';
+
 const PRIMARY_CLASS = 'custom-checkbox';
 
 /**
@@ -11,13 +13,16 @@ const PRIMARY_CLASS = 'custom-checkbox';
  * @returns {JSX.Element}
  */
 export default function CustomCheckbox({labelText, isSelected, isStateLocked, onCheckChange}) {
+    const checkRef = useRef(null);
     return (
         <div className={PRIMARY_CLASS}>
             <input
+                ref={checkRef}
                 type='checkbox'
                 checked={isSelected}
                 disabled={isStateLocked}
                 onChange={(event) => onCheckChange(event.target.checked)}
+                onClick={() => checkRef.current.blur()}
             />
             <label>
                 {labelText}

@@ -1,4 +1,5 @@
 @import "../abstracts/variables";
+@import "../abstracts/mixins";
 
 $icon-size: calc($font-size-body * 0.7);
 
@@ -16,6 +17,10 @@ $icon-size: calc($font-size-body * 0.7);
   background-color: $color-neon-green;
   border: $border-thickness solid $color-neon-green;
   cursor: pointer;
+}
+
+.icon-button button:focus {
+  @include focus-outline($border-thickness, $color-neon-green);
 }
 
 .icon-button div {

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 
 const PRIMARY_CLASS = 'password-field';
 const COPY_LOGO_PATH = '/images/icon-copy.svg';
@@ -20,6 +20,7 @@ const PASSWORD_EXAMPLE = 'P4$5W0rD!';
 export default function PasswordField({password}) {
     const [copiedPassword, setCopiedPassword] = useState();
     const [isTouched, setIsTouched] = useState(false);
+    const buttonRef = useRef(null);
 
     /**
      * Copy the currently displayed password to the clipboard.
@@ -75,13 +76,22 @@ export default function PasswordField({password}) {
             <div className={copiedClass}>
                 {copiedText}
             </div>
-            <Image
-                src={COPY_LOGO_PATH}
-                alt={COPY_LOGO_ALT_TEXT}
-                width={COPY_LOGO_SIZE.width}
-                height={COPY_LOGO_SIZE.height}
-                priority={true}
-            />
+            <button
+                ref={buttonRef}
+                className='focus-button'
+                onClick={() => {
+                    buttonRef.current.blur();
+                    handleCopyPasswordEvent(currentPassword);
+                }}
+            >
+                <Image
+                    src={COPY_LOGO_PATH}
+                    alt={COPY_LOGO_ALT_TEXT}
+                    width={COPY_LOGO_SIZE.width}
+                    height={COPY_LOGO_SIZE.height}
+                    priority={true}
+                />
+            </button>
         </div>
     );
 }

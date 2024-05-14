@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 
 const PRIMARY_CLASS = 'icon-button';
 
@@ -13,6 +13,7 @@ const PRIMARY_CLASS = 'icon-button';
  */
 export default function IconButton({buttonText, icon, onClick}) {
     const [isTouched, setIsTouched] = useState(false);
+    const buttonRef = useRef(null);
 
     const iconCssVariable = {
         '--icon-path': `url('${icon}')`
@@ -26,8 +27,12 @@ export default function IconButton({buttonText, icon, onClick}) {
     return (
         <div style={iconCssVariable} className={PRIMARY_CLASS}>
             <button
+                ref={buttonRef}
                 className={isTouchedClass}
-                onClick={onClick}
+                onClick={() => {
+                    buttonRef.current.blur();
+                    onClick();
+                }}
                 onTouchStart={() => {setIsTouched(true)}}
                 onTouchEnd={() => {setIsTouched(false)}}
             >

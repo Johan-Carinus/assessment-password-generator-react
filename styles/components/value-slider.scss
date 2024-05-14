@@ -1,4 +1,5 @@
-@import '../abstracts/variables';
+@import "../abstracts/variables";
+@import "../abstracts/variables";
 
 @mixin round-slider-thumb($border-color, $background-color, $size, $border-thickness) {
   border: $border-thickness solid $border-color;
@@ -61,6 +62,18 @@ $track-height: 8px;
   @include slider-track($color-very-dark-grey, $track-height);
 }
 
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  @include focus-outline($border-thickness, $color-neon-green);
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  @include focus-outline($border-thickness, $color-neon-green);
+}
+
 @media(hover: hover) {
   .value-slider input[type=range]:hover::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -94,5 +107,3 @@ $track-height: 8px;
 .value-slider input[type=range]::-moz-range-thumb {
   @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $border-thickness);
 }
-
-// TODO: Focus styling https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/
