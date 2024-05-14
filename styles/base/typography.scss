@@ -1,6 +1,16 @@
 @import "../abstracts/variables";
 
+@font-face {
+  font-family: 'JetBrainsMono-Bold';
+  font-weight: normal;
+  font-style: normal;
+  src: url('/fonts/static/JetBrainsMono-Bold.ttf') format('truetype');
+}
+
+$font-family: JetBrainsMono-Bold;
+
 h1, h2, body, div {
+  font-family: $font-family;
   color: $color-almost-white;
 }
 
