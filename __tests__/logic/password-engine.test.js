@@ -8,17 +8,18 @@ function checkPassword(password) {
         hasNumber: false,
         hasOther: false,
     };
+
     for (const characterString of password) {
-        if (characterString.toUpperCase() !== characterString.toLowerCase()) {
+        if (characterString.toUpperCase() !== characterString.toLowerCase()) {  // Character is a letter.
             if(characterString === characterString.toLowerCase()) {
                 checks.hasLowerCase = true;
             } else if (characterString === characterString.toUpperCase()) {
                 checks.hasUpperCase = true;
             }
-        } else if (!isNaN(parseInt(characterString))) {
+        } else if (!isNaN(parseInt(characterString))) { // Character is a number.
             checks.hasNumber = true;
         } else {
-            checks.hasOther = true;
+            checks.hasOther = true; //Character is a special character.
         }
     }
     return checks;
@@ -67,7 +68,8 @@ describe('Internal functions', () => {
 
 describe('Generate password', () => {
     test('Correct settings => Valid password', async () => {
-        const password = await generatePassword(10, true, true, true, true);
+        const characterOptions = new CharacterOptions(true, true, true, true);
+        const password = await generatePassword(10, characterOptions);
         const validationResult = checkPassword(password);
 
         expect(validationResult).toStrictEqual({
@@ -79,13 +81,15 @@ describe('Generate password', () => {
     });
 
     test('Zero length => Empty password', async () => {
-        const password = await generatePassword(0, true, true, true, true);
+        const characterOptions = new CharacterOptions(true, true, true, true);
+        const password = await generatePassword(0, characterOptions);
 
         expect(password.length).toBe(0);
     });
 
     test('No options => Lowercase password', async () => {
-        const password = await generatePassword(10, false, false, false, false);
+        const characterOptions = new CharacterOptions(false, false, false, false);
+        const password = await generatePassword(10, characterOptions);
         const validationResult = checkPassword(password);
 
         expect(validationResult).toStrictEqual({
@@ -97,7 +101,8 @@ describe('Generate password', () => {
     });
 
     test('Options more than password length => Password of length equal to number of options', async () => {
-        let password = await generatePassword(1, true, true, false, false);
+        let characterOptions = new CharacterOptions(true, true, false, false);
+        let password = await generatePassword(1, characterOptions);
         let validationResult = checkPassword(password);
 
         expect(validationResult).toStrictEqual({
@@ -107,7 +112,8 @@ describe('Generate password', () => {
             hasOther: false,
         });
 
-        password = await generatePassword(1, true, false, false, false);
+        characterOptions = new CharacterOptions(true, false, false, false);
+        password = await generatePassword(1, characterOptions);
         validationResult = checkPassword(password);
 
         expect(validationResult).toStrictEqual({
@@ -126,20 +132,23 @@ describe('Rate password criteria', () => {
          * Set of 32 possible characters arranged (possibly repeating) into ordered string of length 10
          * possible combinations = 32^10 = 1.126 x 10^15
          */
-        const zeroIndexRating = ratePasswordCriteria(10, true, true, false, false);
+        const characterOptions = new CharacterOptions(true, true, false, false);
+        const zeroIndexRating = ratePasswordCriteria(10, characterOptions);
 
         // Medium rating
         expect(zeroIndexRating).toBe(2);
     });
 
     test('Zero length => Zero strength', () => {
-        const zeroIndexRating = ratePasswordCriteria(0, true, true, true, true);
+        const characterOptions = new CharacterOptions(true, true, true, true);
+        const zeroIndexRating = ratePasswordCriteria(0, characterOptions);
 
         expect(zeroIndexRating).toBe(0);
     });
 
     test('Zero options => Zero strength', () => {
-        const zeroIndexRating = ratePasswordCriteria(10, false, false, false, false);
+        const characterOptions = new CharacterOptions(false, false, false, false);
+        const zeroIndexRating = ratePasswordCriteria(10, characterOptions);
 
         expect(zeroIndexRating).toBe(0);
     });
@@ -151,27 +160,28 @@ describe('Rate password criteria', () => {
          * different powers.
          */
         let zeroIndexRating;
+        let characterOptions = new CharacterOptions(false, false, true, false);
 
         // Too Weak = 0: 10^10 and below
-        zeroIndexRating = ratePasswordCriteria(10, false, false, true, false);
+        zeroIndexRating = ratePasswordCriteria(10, characterOptions);
         expect(zeroIndexRating).toBe(0);
 
         // Weak = 1: (10^10)+1 to 10^14
-        zeroIndexRating = ratePasswordCriteria(11, false, false, true, false);
+        zeroIndexRating = ratePasswordCriteria(11, characterOptions);
         expect(zeroIndexRating).toBe(1);
-        zeroIndexRating = ratePasswordCriteria(14, false, false, true, false);
+        zeroIndexRating = ratePasswordCriteria(14, characterOptions);
         expect(zeroIndexRating).toBe(1);
 
         // Medium = 2: (10^14)+1 to 10^18
-        zeroIndexRating = ratePasswordCriteria(15, false, false, true, false);
+        zeroIndexRating = ratePasswordCriteria(15, characterOptions);
         expect(zeroIndexRating).toBe(2);
-        zeroIndexRating = ratePasswordCriteria(18, false, false, true, false);
+        zeroIndexRating = ratePasswordCriteria(18, characterOptions);
         expect(zeroIndexRating).toBe(2);
 
         // Strong = 3: (10^18)+1 onwards
-        zeroIndexRating = ratePasswordCriteria(19, false, false, true, false);
+        zeroIndexRating = ratePasswordCriteria(19, characterOptions);
         expect(zeroIndexRating).toBe(3);
-        zeroIndexRating = ratePasswordCriteria(20, false, false, true, false);
+        zeroIndexRating = ratePasswordCriteria(20, characterOptions);
         expect(zeroIndexRating).toBe(3);
     });
 });

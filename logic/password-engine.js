@@ -1,27 +1,28 @@
 /**
- * Utility function for decoding a range of decimal character values.
+ * Utility function for decoding a range of paired decimal character values.
  *
- * @param range A paired list of decimal character values. Note: range.length should always be multiples of 2.
+ * @param {number[][]} range A paired list of decimal character values.
  *
  * @returns {string[][]} A list generated from all the decimal values between (inclusive) the pairs in the range array.
  */
 const decodeCharacterRange = (range) => {
     const characters = [];
     for (let i = 0; i < range.length; i+=2) {
-        if (i+1 === range.length) {
+        const pair = range[i];
+        if (pair.length !== 2) {
             continue;
         }
 
-        for (let j = range[i]; j <= range[i+1]; j++) {
+        for (let j = pair[0]; j <= pair[1]; j++) {
             characters.push(String.fromCharCode(j));
         }
     }
     return characters;
 }
-const LOWERCASE_CHARACTERS = decodeCharacterRange([97, 122]);
-const UPPERCASE_CHARACTERS = decodeCharacterRange([65, 90]);
-const NUMBER_CHARACTERS = decodeCharacterRange([48, 57]);
-const SPECIAL_CHARACTERS = decodeCharacterRange([33, 47, 58, 64, 91, 96, 123, 126]);
+const LOWERCASE_CHARACTERS = decodeCharacterRange([[97, 122]]);
+const UPPERCASE_CHARACTERS = decodeCharacterRange([[65, 90]]);
+const NUMBER_CHARACTERS = decodeCharacterRange([[48, 57]]);
+const SPECIAL_CHARACTERS = decodeCharacterRange([[33, 47], [58, 64], [91, 96], [123, 126]]);
 
 const PASSWORD_RATING_TABLE = [
     (10n ** 10n),    // Too Weak
@@ -33,26 +34,23 @@ const PASSWORD_RATING_TABLE = [
 /**
  * Define a pool of characters that can be used to generate a password.
  *
- * @param useLowerCase Should lower case characters be used in the pool.
- * @param useUpperCase Should upper case characters be used in the pool.
- * @param useNumbers Should number characters be used in the pool.
- * @param useSymbols Should special characters be used in the pool.
+ * @param {CharacterOptions} characterOptions Options indicating which characters should be used in the password.
  *
  * @returns {string[][]} All of the characters that can be used in the generation of a password, grouped in mandatory groups.
  */
-function setUpCharacterPool(useLowerCase, useUpperCase, useNumbers, useSymbols) {
+function setUpCharacterPool(characterOptions) {
     const characterPool = [];
 
-    if (useLowerCase) {
+    if (characterOptions.shouldUseLowerCase) {
         characterPool.push(LOWERCASE_CHARACTERS);
     }
-    if (useUpperCase) {
+    if (characterOptions.shouldUseUpperCase) {
         characterPool.push(UPPERCASE_CHARACTERS);
     }
-    if (useNumbers) {
+    if (characterOptions.shouldUseNumbers) {
         characterPool.push(NUMBER_CHARACTERS);
     }
-    if (useSymbols) {
+    if (characterOptions.shouldUseSymbols) {
         characterPool.push(SPECIAL_CHARACTERS);
     }
 
@@ -92,30 +90,21 @@ function generateCandidate(length, characterPool) {
  * Generate a valid password according to the specified criteria.
  *
  * @param length The required length of the password.
- * @param useLowerCase Should lower case characters be used in the password.
- * @param useUpperCase Should upper case characters be used in the password.
- * @param useNumbers Should number characters be used in the password.
- * @param useSymbols Should symbol characters be used in the password.
+ * @param {CharacterOptions} characterOptions Options indicating which characters should be used in the password.
  *
  * @returns {Promise<string>} The generated password.
  */
-export async function generatePassword(length, useLowerCase, useUpperCase, useNumbers, useSymbols) {
+export async function generatePassword(length, characterOptions) {
     if (length === 0) {
         return '';
     }
 
-    let minLen = 0;
-    if(useLowerCase) minLen++;
-    if(useUpperCase) minLen++;
-    if(useNumbers) minLen++;
-    if(useSymbols) minLen++;
-
-    let usableLength = minLen;
+    let usableLength = characterOptions.numberSelected();
     if (length > usableLength) {
         usableLength = length
     }
 
-    const characterPool = setUpCharacterPool(useLowerCase, useUpperCase, useNumbers, useSymbols);
+    const characterPool = setUpCharacterPool(characterOptions);
 
     let isValidCandidate = false;
     let candidate;
@@ -141,19 +130,16 @@ export async function generatePassword(length, useLowerCase, useUpperCase, useNu
  * that can be made with the possible character set and password length.
  *
  * @param length The required length of the password.
- * @param useLowerCase Should lower case characters be used in the password.
- * @param useUpperCase Should upper case characters be used in the password.
- * @param useNumbers Should number characters be used in the password.
- * @param useSymbols Should symbol characters be used in the password.
+ * @param {CharacterOptions} characterOptions Options indicating which characters should be used in the password.
  *
  * @returns {number} A zero-indexed rating indicating discrete levels of password ratings.
  */
-export function ratePasswordCriteria(length, useLowerCase, useUpperCase, useNumbers, useSymbols) {
-    if (!useLowerCase && !useUpperCase && !useNumbers && !useSymbols) {
+export function ratePasswordCriteria(length, characterOptions) {
+    if (characterOptions.numberSelected() === 0) {
         return 0;
     }
 
-    const characterPool = setUpCharacterPool(useLowerCase, useUpperCase, useNumbers, useSymbols);
+    const characterPool = setUpCharacterPool(characterOptions);
 
     let characterVariations = 0;
     for (const characterPoolElement of characterPool) {
