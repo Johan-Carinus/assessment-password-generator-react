@@ -1,5 +1,5 @@
 import {describe, expect, test} from '@jest/globals';
-import {generatePassword, ratePasswordCriteria} from "@/logic/password-engine";
+import {generatePassword, ratePasswordCriteria} from '@/logic/password-engine';
 
 function checkPassword(password) {
     let checks = {
@@ -87,6 +87,28 @@ describe('Generate password', () => {
     test('No options => Lowercase password', async () => {
         const password = await generatePassword(10, false, false, false, false);
         const validationResult = checkPassword(password);
+
+        expect(validationResult).toStrictEqual({
+            hasLowerCase: true,
+            hasUpperCase: false,
+            hasNumber: false,
+            hasOther: false,
+        });
+    });
+
+    test('Options more than password length => Password of length equal to number of options', async () => {
+        let password = await generatePassword(1, true, true, false, false);
+        let validationResult = checkPassword(password);
+
+        expect(validationResult).toStrictEqual({
+            hasLowerCase: true,
+            hasUpperCase: true,
+            hasNumber: false,
+            hasOther: false,
+        });
+
+        password = await generatePassword(1, true, false, false, false);
+        validationResult = checkPassword(password);
 
         expect(validationResult).toStrictEqual({
             hasLowerCase: true,

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {useState} from "react";
+import {useState} from 'react';
 
 const PRIMARY_CLASS = 'password-field';
 const COPY_LOGO_PATH = '/images/icon-copy.svg';

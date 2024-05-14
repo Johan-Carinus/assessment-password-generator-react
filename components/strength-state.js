@@ -1,4 +1,4 @@
-import {ratePasswordCriteria} from "@/logic/password-engine";
+import {ratePasswordCriteria} from '@/logic/password-engine';
 
 const PRIMARY_CLASS = 'strength-state';
 const STRENGTH_TEXT = [

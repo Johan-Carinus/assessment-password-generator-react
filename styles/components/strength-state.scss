@@ -8,9 +8,9 @@
     border: $border-thickness solid $block-color;
     background-color: $block-color;
   }
-  height: 24px;
-  width: 6px;
-  margin-left: 8px;
+  height: $font-size-heading-medium;
+  width: clamp(4px, 6px, 6px);
+  margin-left: $spacing-xsmall;
 }
 
 .strength-state {
@@ -20,14 +20,22 @@
   padding: $spacing-medium;
 }
 
+@media(max-width: $mobile-transition) {
+  .strength-state {
+    padding: $spacing-small;
+  }
+}
+
 .strength-state .strength {
   color: $color-grey;
+  margin-right: $spacing-xsmall;
 }
 
 .strength-state h2 {
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: $spacing-xsmall;
+  margin-right: $spacing-xsmall;
   flex-grow: 1;
+  width: 100%;
   text-align: right;
 }
 

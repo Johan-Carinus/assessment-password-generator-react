@@ -1,5 +1,7 @@
 @import "../abstracts/variables";
 
+$icon-size: calc($font-size-body * 0.7);
+
 .icon-button {
   --icon-path: url('/images/empty.svg');
 }
@@ -10,22 +12,31 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 65px;
+  padding: $spacing-small-medium 0;
   background-color: $color-neon-green;
-  color: $color-dark-grey;
   border: none;
   cursor: pointer;
-  padding: 0;
+}
+
+.icon-button div {
+  color: $color-dark-grey;
 }
 
 .icon-button button:hover {
   background: transparent;
   border: $border-thickness solid $color-neon-green;
+}
+
+.icon-button button:hover div {
   color: $color-neon-green;
 }
 
 .icon-button button .icon-box {
   background-color: $color-dark-grey;
+  -webkit-mask-size: $icon-size;
+  mask-size: $icon-size ;
+  width: $icon-size;
+  height: $icon-size;
   -webkit-mask-image: var(--icon-path);
   mask-image: var(--icon-path);
   -webkit-mask-repeat: no-repeat; /* Prevent mask image from repeating (WebKit browsers) */
@@ -35,6 +46,13 @@
   margin-left: $spacing-medium;
 }
 
+@media(max-width: $mobile-transition) {
+  .icon-button button .icon-box {
+    margin-left: $spacing-small;
+  }
+}
+
 .icon-button button:hover .icon-box {
   background-color: $color-neon-green; /* Background color of the element */
 }
+

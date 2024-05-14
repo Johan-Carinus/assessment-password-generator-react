@@ -15,7 +15,8 @@ const config = {
   moduleNameMapper: {
     // ...
     '^@/logic/(.*)$': '<rootDir>/logic/$1',
-  }
+  },
+  testTimeout: 5000,
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

@@ -1,34 +1,37 @@
 @import "../abstracts/variables";
 
-@font-face {
-  font-family: 'JetBrainsMono-Bold';
-  font-weight: normal;
-  font-style: normal;
-  src: url('/fonts/static/JetBrainsMono-Bold.ttf') format('truetype');
-}
-
-$font-family: JetBrainsMono-Bold;
-
-h1, h2, body, button {
-  font-family: $font-family;
+h1, h2, body, div {
   color: $color-almost-white;
 }
 
 h1 {
-  font-size: 32px;
-  line-height: 43px;
+  font-size: $font-size-heading-large;
+  line-height: $font-line-height-heading-large;
 }
 
 h2 {
-  font-size: 24px;
-  line-height: 31px;
+  font-size: $font-size-heading-medium;
+  line-height: $font-line-height-heading-medium;
 }
 
-body, button {
-  font-size: 18px;
-  line-height: 23px;
+body, div {
+  font-size: $font-size-body;
+  line-height: $font-line-height-body;
 }
 
-header h2 {
-  text-align: center;
+@media(max-width: $mobile-transition) {
+  h1 {
+    font-size: $font-size-heading-medium;
+    line-height: $font-line-height-heading-medium;
+  }
+
+  h2 {
+    font-size: $font-size-body;
+    line-height: $font-line-height-body;
+  }
+
+  body, div {
+    font-size: 1rem;
+    line-height: 110%;
+  }
 }

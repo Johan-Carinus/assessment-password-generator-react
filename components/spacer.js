@@ -9,12 +9,21 @@ export const SPACER_TYPE = {
 /**
  * A configurable spacer component.
  *
- * @param spacerType The height preset indicated in SPACER_TYPE.
+ * @param primarySpacerType The height preset indicated in SPACER_TYPE.
+ * @param mobileSpacerType The height preset indicated in SPACER_TYPE for mobile screen sizes.
  *
  * @returns {JSX.Element}
  */
-export default function Spacer({spacerType}) {
+export default function Spacer({primarySpacerType, mobileSpacerType}) {
+    let mSpacer = mobileSpacerType;
+    if (!mSpacer) {
+        mSpacer = primarySpacerType;
+    }
+
     return (
-        <div className={`${PRIMARY_CLASS} ${spacerType}`}/>
+        <>
+            <div className={`${PRIMARY_CLASS} ${primarySpacerType}`}/>
+            <div className={`${PRIMARY_CLASS} mobile ${mSpacer}`}/>
+        </>
     );
 }

@@ -1,10 +1,7 @@
 @import "../abstracts/variables";
 
 body {
-  // TODO: Fix styling on small screens
-  width: calc(100% - ($spacing-small*2));
-  max-width: 540px;
-  min-width: 343px;
+  width: clamp(288px, calc(100% - ($spacing-small*2)), 540px);
   padding-left: $spacing-small;
   padding-right: $spacing-small;
   padding-bottom: $spacing-small;

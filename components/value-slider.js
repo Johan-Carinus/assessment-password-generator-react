@@ -41,7 +41,7 @@ export default function ValueSlider({title, minValue, maxValue, currentValue, on
             </div>
             <div className='slide'>
                 <input
-                    type="range"
+                    type='range'
                     min={minValue}
                     max={maxValue}
                     value={currentValue}

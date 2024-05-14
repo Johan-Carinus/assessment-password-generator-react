@@ -5,12 +5,18 @@ $checkbox-size: 20px;
 .custom-checkbox {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .custom-checkbox label {
   margin-left: $spacing-medium;
   flex-grow: 1;
+}
+
+@media(max-width: $mobile-transition) {
+  .custom-checkbox label {
+    margin-left: $spacing-small;
+  }
 }
 
 .custom-checkbox input[type=checkbox] {

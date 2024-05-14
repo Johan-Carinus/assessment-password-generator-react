@@ -7,8 +7,29 @@ $color-red: #F64A4A;
 $color-orange: #FB7C58;
 $color-yellow: #F8CD65;
 
+$spacing-xsmall: 8px;
 $spacing-small: 16px;
+$spacing-small-medium: 20px;
 $spacing-medium: 24px;
 $spacing-large: 32px;
+$mobile-transition: calc(540px + ($spacing-small*2));
+$mobile-vertical-transition: 855px;
 
 $border-thickness: 2px;
+
+// Default font size: 1rem = 16px
+$spacing-xsmall-rem: 0.5rem;
+$spacing-small-rem: 1rem;
+$spacing-medium-rem: 1.5rem;
+
+// Heading Large 32px Font 43px Line
+$font-size-heading-large: 2rem;
+$font-line-height-heading-large: 2.6875rem;
+
+// Heading Medium 24px Font 31px Line
+$font-size-heading-medium: 1.5rem;
+$font-line-height-heading-medium: 1.9375rem;
+
+// Body 18px Font 23px Line
+$font-size-body: 1.125rem;
+$font-line-height-body: 1.4375rem;

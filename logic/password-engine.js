@@ -104,13 +104,26 @@ export async function generatePassword(length, useLowerCase, useUpperCase, useNu
         return '';
     }
 
+    let minLen = 0;
+    if(useLowerCase) minLen++;
+    if(useUpperCase) minLen++;
+    if(useNumbers) minLen++;
+    if(useSymbols) minLen++;
+
+    let usableLength = minLen;
+    if (length > usableLength) {
+        usableLength = length
+    }
+
     const characterPool = setUpCharacterPool(useLowerCase, useUpperCase, useNumbers, useSymbols);
 
     let isValidCandidate = false;
     let candidate;
-    while (!isValidCandidate) {
+    let retryCount = 0;
+    while (!isValidCandidate && retryCount < 1000) {
         let isValid = true;
-        candidate = generateCandidate(length, characterPool);
+        retryCount++;
+        candidate = generateCandidate(usableLength, characterPool);
         for (const countElement of candidate.setCount) {
             if (countElement <= 0) {
                 isValid = false;

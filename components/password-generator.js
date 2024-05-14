@@ -1,10 +1,8 @@
-'use client'
+import {useState} from 'react';
 
-import {useState} from "react";
-
-import PasswordField from "@/components/password-field";
-import PasswordOptions from "@/components/password-options";
-import Spacer, {SPACER_TYPE} from "@/components/spacer";
+import PasswordField from '@/components/password-field';
+import PasswordOptions from '@/components/password-options';
+import Spacer, {SPACER_TYPE} from '@/components/spacer';
 
 const PRIMARY_CLASS = 'password-generator';
 
@@ -25,7 +23,7 @@ export default function PasswordGenerator() {
                 </h2>
             </header>
             <PasswordField password={generatedPassword}/>
-            <Spacer spacerType={SPACER_TYPE.MEDIUM}/>
+            <Spacer primarySpacerType={SPACER_TYPE.MEDIUM} mobileSpacerType={SPACER_TYPE.SMALL}/>
             <PasswordOptions onGeneratePassword={setGeneratedPassword}/>
         </div>
     );
