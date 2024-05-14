@@ -19,6 +19,7 @@ const PASSWORD_EXAMPLE = 'P4$5W0rD!';
  */
 export default function PasswordField({password}) {
     const [copiedPassword, setCopiedPassword] = useState();
+    const [isTouched, setIsTouched] = useState(false);
 
     /**
      * Copy the currently displayed password to the clipboard.
@@ -40,6 +41,7 @@ export default function PasswordField({password}) {
     let copiedClass;
     let copiedText;
     let currentPassword = password;
+    let isTouchedClass = '';
 
     if (!currentPassword || currentPassword.length === 0) {
         currentPassword = PASSWORD_EXAMPLE;
@@ -56,10 +58,16 @@ export default function PasswordField({password}) {
         copiedText = '';
     }
 
+    if (isTouched) {
+        isTouchedClass = 'touched';
+    }
+
     return (
         <div
-            className={`${PRIMARY_CLASS} background-standard`}
+            className={`${PRIMARY_CLASS} ${isTouchedClass} background-standard`}
             onClick={() => handleCopyPasswordEvent(currentPassword)}
+            onTouchStart={() => {setIsTouched(true)}}
+            onTouchEnd={() => {setIsTouched(false)}}
         >
             <h1 className={passwordDisplayClass}>
                 {currentPassword}

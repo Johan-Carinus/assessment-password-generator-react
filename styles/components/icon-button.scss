@@ -22,15 +22,6 @@ $icon-size: calc($font-size-body * 0.7);
   color: $color-dark-grey;
 }
 
-.icon-button button:hover {
-  background: transparent;
-  border: $border-thickness solid $color-neon-green;
-}
-
-.icon-button button:hover div {
-  color: $color-neon-green;
-}
-
 .icon-button button .icon-box {
   background-color: $color-dark-grey;
   -webkit-mask-size: $icon-size;
@@ -52,7 +43,36 @@ $icon-size: calc($font-size-body * 0.7);
   }
 }
 
-.icon-button button:hover .icon-box {
-  background-color: $color-neon-green; /* Background color of the element */
+@media(hover: hover) {
+  .icon-button button:hover {
+    background: transparent;
+    border: $border-thickness solid $color-neon-green;
+  }
+
+  .icon-button button:hover div {
+    color: $color-neon-green;
+  }
+
+  .icon-button button:hover .icon-box {
+    background-color: $color-neon-green; /* Background color of the element */
+  }
 }
 
+@media(hover: none) {
+  .icon-button button {
+    cursor: none;
+  }
+
+  .icon-button .touched {
+    background: transparent;
+    border: $border-thickness solid $color-neon-green;
+  }
+
+  .icon-button .touched div {
+    color: $color-neon-green;
+  }
+
+  .icon-button .touched .icon-box {
+    background-color: $color-neon-green; /* Background color of the element */
+  }
+}

@@ -61,24 +61,38 @@ $track-height: 8px;
   @include slider-track($color-very-dark-grey, $track-height);
 }
 
+@media(hover: hover) {
+  .value-slider input[type=range]:hover::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $border-thickness);
+    margin-top: calc(($track-height/2) - ($thumb-height/2));
+  }
+
+  .value-slider input[type=range]:hover::-moz-range-thumb {
+    @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $border-thickness);
+  }
+}
+
+@media(hover: none) {
+  .value-slider input[type=range].touched::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $border-thickness);
+    margin-top: calc(($track-height/2) - ($thumb-height/2));
+  }
+
+  .value-slider input[type=range].touched::-moz-range-thumb {
+    @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $border-thickness);
+  }
+}
+
 .value-slider input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $border-thickness);
   margin-top: calc(($track-height/2) - ($thumb-height/2));
 }
 
-.value-slider input[type=range]:hover::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $border-thickness);
-  margin-top: calc(($track-height/2) - ($thumb-height/2));
-}
-
 .value-slider input[type=range]::-moz-range-thumb {
   @include round-slider-thumb($color-almost-white, $color-almost-white, $thumb-height, $border-thickness);
-}
-
-.value-slider input[type=range]:hover::-moz-range-thumb {
-  @include round-slider-thumb($color-neon-green, $color-very-dark-grey, $thumb-height, $border-thickness);
 }
 
 // TODO: Focus styling https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/

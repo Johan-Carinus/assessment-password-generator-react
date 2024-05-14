@@ -1,3 +1,5 @@
+import {useState} from 'react';
+
 const PRIMARY_CLASS = 'value-slider';
 
 /**
@@ -12,6 +14,7 @@ const PRIMARY_CLASS = 'value-slider';
  * @returns {JSX.Element}
  */
 export default function ValueSlider({title, minValue, maxValue, currentValue, onSlide}) {
+    const [isTouched, setIsTouched] = useState(false);
 
     /**
      * Calculate the exact percentage of the slider that is currently filled by the selected value.
@@ -29,6 +32,11 @@ export default function ValueSlider({title, minValue, maxValue, currentValue, on
         '--slide-position': calculateSliderPercentage()
     };
 
+    let isTouchedClass = '';
+    if (isTouched) {
+        isTouchedClass = 'touched';
+    }
+
     return (
         <div style={sliderPositionCssVariable} className={PRIMARY_CLASS}>
             <div className='text-row'>
@@ -41,11 +49,14 @@ export default function ValueSlider({title, minValue, maxValue, currentValue, on
             </div>
             <div className='slide'>
                 <input
+                    className={isTouchedClass}
                     type='range'
                     min={minValue}
                     max={maxValue}
                     value={currentValue}
                     onInput={(e) => onSlide(e.target.value)}
+                    onTouchStart={() => {setIsTouched(true)}}
+                    onTouchEnd={() => {setIsTouched(false)}}
                 />
             </div>
         </div>

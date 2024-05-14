@@ -1,3 +1,5 @@
+import {useState} from 'react';
+
 const PRIMARY_CLASS = 'icon-button';
 
 /**
@@ -10,13 +12,25 @@ const PRIMARY_CLASS = 'icon-button';
  * @returns {JSX.Element}
  */
 export default function IconButton({buttonText, icon, onClick}) {
+    const [isTouched, setIsTouched] = useState(false);
+
     const iconCssVariable = {
         '--icon-path': `url('${icon}')`
     };
 
+    let isTouchedClass = '';
+    if (isTouched) {
+        isTouchedClass = 'touched';
+    }
+
     return (
         <div style={iconCssVariable} className={PRIMARY_CLASS}>
-            <button className="btn" onClick={onClick}>
+            <button
+                className={isTouchedClass}
+                onClick={onClick}
+                onTouchStart={() => {setIsTouched(true)}}
+                onTouchEnd={() => {setIsTouched(false)}}
+            >
                 <div>
                     {buttonText.toUpperCase()}
                 </div>
