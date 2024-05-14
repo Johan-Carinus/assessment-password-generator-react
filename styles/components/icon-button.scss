@@ -35,8 +35,8 @@ $icon-size: calc($font-size-body * 0.7);
   height: $icon-size;
   -webkit-mask-image: var(--icon-path);
   mask-image: var(--icon-path);
-  -webkit-mask-repeat: no-repeat; /* Prevent mask image from repeating (WebKit browsers) */
-  mask-repeat: no-repeat; /* Prevent mask image from repeating */
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
   margin-left: $spacing-medium;
@@ -59,7 +59,7 @@ $icon-size: calc($font-size-body * 0.7);
   }
 
   .icon-button button:hover .icon-box {
-    background-color: $color-neon-green; /* Background color of the element */
+    background-color: $color-neon-green;
   }
 }
 
@@ -78,6 +78,6 @@ $icon-size: calc($font-size-body * 0.7);
   }
 
   .icon-button .touched .icon-box {
-    background-color: $color-neon-green; /* Background color of the element */
+    background-color: $color-neon-green;
   }
 }

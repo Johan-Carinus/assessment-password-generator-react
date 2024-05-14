@@ -9,17 +9,6 @@ $checkbox-size: 20px;
   align-items: center;
 }
 
-.custom-checkbox label {
-  margin-left: $spacing-medium;
-  flex-grow: 1;
-}
-
-@media(max-width: $mobile-transition) {
-  .custom-checkbox label {
-    margin-left: $spacing-small;
-  }
-}
-
 .custom-checkbox input[type=checkbox] {
   appearance: none;
   -webkit-appearance: none;
@@ -43,4 +32,15 @@ $checkbox-size: 20px;
   background-repeat: no-repeat;
   background-color: $color-neon-green;
   border: none;
+}
+
+.custom-checkbox label {
+  margin-left: $spacing-medium;
+  flex-grow: 1;
+}
+
+@media(max-width: $mobile-transition) {
+  .custom-checkbox label {
+    margin-left: $spacing-small;
+  }
 }

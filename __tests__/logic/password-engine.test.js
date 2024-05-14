@@ -1,5 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
 import {generatePassword, ratePasswordCriteria} from '@/logic/password-engine';
+import CharacterOptions from '@/logic/character-options';
 
 function checkPassword(password) {
     let checks = {

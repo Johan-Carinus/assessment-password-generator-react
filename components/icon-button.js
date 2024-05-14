@@ -19,25 +19,22 @@ export default function IconButton({buttonText, icon, onClick}) {
         '--icon-path': `url('${icon}')`
     };
 
-    let isTouchedClass = '';
-    if (isTouched) {
-        isTouchedClass = 'touched';
-    }
+    let isTouchedClass = isTouched ? 'touched' : '';
 
     return (
         <div style={iconCssVariable} className={PRIMARY_CLASS}>
             <button
                 ref={buttonRef}
                 className={isTouchedClass}
-                onClick={() => {
-                    buttonRef.current.blur();
-                    onClick();
-                }}
                 onTouchStart={() => setIsTouched(true)}
                 onTouchEnd={() => setIsTouched(false)}
                 onMouseDown={() => setIsTouched(true)}
                 onMouseUp={() => setIsTouched(false)}
                 onMouseLeave={() => setIsTouched(false)}
+                onClick={() => {
+                    buttonRef.current.blur();
+                    onClick();
+                }}
             >
                 <div>
                     {buttonText.toUpperCase()}

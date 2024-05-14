@@ -20,8 +20,8 @@ const PASSWORD_EXAMPLE = 'P4$5W0rD!';
 export default function PasswordField({password}) {
     const [copiedPassword, setCopiedPassword] = useState();
     const [isTouched, setIsTouched] = useState(false);
-    const [isButtonTouched, setIsButtonTouched] = useState(false);
-    const buttonRef = useRef(null);
+    const [isCopyButtonTouched, setIsCopyButtonTouched] = useState(false);
+    const copyButtonRef = useRef(null);
 
     /**
      * Copy the currently displayed password to the clipboard.
@@ -39,34 +39,16 @@ export default function PasswordField({password}) {
             });
     }
 
-    let passwordDisplayClass;
-    let copiedClass;
-    let copiedText;
     let currentPassword = password;
-    let isTouchedClass = '';
-    let isButtonTouchedClass = '';
+    let passwordIsEmpty = !currentPassword || currentPassword.length === 0;
+    let passwordDisplayClass = passwordIsEmpty ? 'empty' : 'filled';
+    currentPassword = passwordIsEmpty ? PASSWORD_EXAMPLE : currentPassword;
 
-    if (!currentPassword || currentPassword.length === 0) {
-        currentPassword = PASSWORD_EXAMPLE;
-        passwordDisplayClass = 'empty';
-    } else {
-        passwordDisplayClass = 'filled';
-    }
+    let copiedClass = copiedPassword === currentPassword ? 'copied' : 'not-copied';
+    let copiedText = copiedPassword === currentPassword ? 'COPIED' : '';
 
-    if (copiedPassword === currentPassword) {
-        copiedClass = 'copied';
-        copiedText = 'COPIED';
-    } else {
-        copiedClass = 'not-copied';
-        copiedText = '';
-    }
-
-    if (isTouched) {
-        isTouchedClass = 'touched';
-    }
-    if (isButtonTouched) {
-        isButtonTouchedClass = 'button-touched';
-    }
+    let isTouchedClass = isTouched ? 'touched' : '';
+    let isCopyButtonTouchedClass = isTouched ? 'copy-button-touched' : '';
 
     return (
         <div
@@ -82,15 +64,15 @@ export default function PasswordField({password}) {
                 {copiedText}
             </div>
             <button
-                ref={buttonRef}
-                className={`${isButtonTouchedClass} focus-button`}
+                ref={copyButtonRef}
+                className={`${isCopyButtonTouchedClass} focus-button`}
                 onClick={() => {
-                    buttonRef.current.blur();
+                    copyButtonRef.current.blur();
                     handleCopyPasswordEvent(currentPassword);
                 }}
-                onMouseDown={() => setIsButtonTouched(true)}
-                onMouseUp={() => setIsButtonTouched(false)}
-                onMouseLeave={() => setIsButtonTouched(false)}
+                onMouseDown={() => setIsCopyButtonTouched(true)}
+                onMouseUp={() => setIsCopyButtonTouched(false)}
+                onMouseLeave={() => setIsCopyButtonTouched(false)}
             >
                 <Image
                     src={COPY_LOGO_PATH}

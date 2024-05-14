@@ -16,16 +16,13 @@ export default function CustomCheckbox({labelText, isSelected, isStateLocked, on
     const [isTouched, setIsTouched] = useState(false);
     const checkRef = useRef(null);
 
-    let isTouchedClass = '';
-    if (isTouched) {
-        isTouchedClass = 'touched';
-    }
+    let isTouchedClass = isTouched ? 'touched' : '';
 
     return (
         <div className={PRIMARY_CLASS}>
             <input
-                className={isTouchedClass}
                 ref={checkRef}
+                className={isTouchedClass}
                 type='checkbox'
                 checked={isSelected}
                 disabled={isStateLocked}

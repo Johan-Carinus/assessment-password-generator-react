@@ -1,5 +1,5 @@
 @import "../abstracts/variables";
-@import "../abstracts/variables";
+@import "../abstracts/mixins";
 
 @mixin round-slider-thumb($border-color, $background-color, $size, $border-thickness) {
   border: $border-thickness solid $border-color;
@@ -65,7 +65,6 @@ $track-height: 8px;
 .value-slider input[type="range"]:focus {
   outline: none;
 }
-
 
 .value-slider input[type="range"]:not(.touched):focus::-webkit-slider-thumb {
   @include focus-outline($border-thickness, $color-neon-green);

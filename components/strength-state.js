@@ -20,26 +20,19 @@ const MAX_DISPLAYABLE_STRENGTH = STRENGTH_TEXT.length - 1;
  * input criteria.
  *
  * @param length The required length of the password.
- * @param uppercase Should the password contain uppercase characters.
- * @param lowercase Should the password contain lowercase characters.
- * @param numbers Should the password contain number characters.
- * @param symbols Should the password contain special symbol characters.
+ * @param {CharacterOptions} characterOptions Data indicating which characters a password should contain.
  *
  * @returns {JSX.Element}
  */
-export default function StrengthState({length, uppercase, lowercase, numbers, symbols}) {
-    let strengthRating = ratePasswordCriteria(length, lowercase, uppercase, numbers, symbols);
+export default function StrengthState({length, characterOptions}) {
+    let strengthRating = ratePasswordCriteria(length, characterOptions);
     if (strengthRating > MAX_DISPLAYABLE_STRENGTH) {
         strengthRating = MAX_DISPLAYABLE_STRENGTH;
     }
 
     let blocks = new Array(4).fill(0)
         .map((className, index) => {
-            if (index <= strengthRating) {
-                return BLOCK_INDICATOR_CLASS[strengthRating];
-            } else {
-                return 'outline-block'
-            }
+            return index <= strengthRating ? BLOCK_INDICATOR_CLASS[strengthRating] : 'outline-block';
         })
         .map((className, index) => (
             <div key={index} className={className}/>

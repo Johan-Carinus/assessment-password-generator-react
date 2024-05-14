@@ -2,7 +2,7 @@
  * A class that contains all the selectable character options that is used to keep track of which options to use when
  * generating a password.
  */
-class CharacterOptions {
+export default class CharacterOptions {
     constructor(useLowerCase, useUpperCase, useNumbers, useSymbols) {
         this.useLowerCase = useLowerCase;
         this.useUpperCase = useUpperCase;

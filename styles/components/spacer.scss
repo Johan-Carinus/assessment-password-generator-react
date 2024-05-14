@@ -31,6 +31,7 @@
   display: none;
 }
 
+// Mobile spacers are hidden when the screen is big enough and the primary spacer is hidden if the mobile spacer is shown
 @media(max-width: $mobile-transition) {
   .spacer.small {
     display: none;

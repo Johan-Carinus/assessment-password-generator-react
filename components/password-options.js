@@ -6,6 +6,7 @@ import IconButton from '@/components/icon-button';
 import CustomCheckbox from '@/components/custom-checkbox';
 import {generatePassword} from '@/logic/password-engine';
 import Spacer, {SPACER_TYPE} from '@/components/spacer';
+import CharacterOptions from "@/logic/character-options";
 
 const PRIMARY_CLASS = 'password-options';
 
@@ -18,10 +19,13 @@ const PRIMARY_CLASS = 'password-options';
  */
 export default function PasswordOptions({onGeneratePassword}) {
     const [passwordLength, setPasswordLength] = useState(10);
-    const [shouldIncludeUpperCase, setShouldIncludeUpperCase] = useState(true);
-    const [shouldIncludeLowerCase, setShouldIncludeLowerCase] = useState(false);
-    const [shouldIncludeNumbers, setShouldIncludeNumbers] = useState(false);
-    const [shouldIncludeSymbols, setShouldIncludeSymbols] = useState(false);
+    const [characterOptions, setCharacterOptions] = useState(
+        new CharacterOptions(
+            true,
+            false,
+            false,
+            false)
+    );
 
     /**
      * Generate a new password based on the currently set options and pass it to the parent handler.
@@ -29,46 +33,22 @@ export default function PasswordOptions({onGeneratePassword}) {
     function genPwdEvent() {
         generatePassword(
             passwordLength,
-            shouldIncludeLowerCase,
-            shouldIncludeUpperCase,
-            shouldIncludeNumbers,
-            shouldIncludeSymbols
+            characterOptions
         ).then((password) => onGeneratePassword(password));
     }
 
     /**
-     * Calculates how many of the 'shouldInclude' group are selected.
-     *
-     * @returns {number} The number of checkboxes selected.
-     */
-    function selectionCount() {
-        let checkboxesSelected = 0;
-        if (shouldIncludeUpperCase) checkboxesSelected++;
-        if (shouldIncludeLowerCase) checkboxesSelected++;
-        if (shouldIncludeNumbers) checkboxesSelected++;
-        if (shouldIncludeSymbols) checkboxesSelected++;
-        return checkboxesSelected;
-    }
-
-    /**
-     * Check whether a checkbox option in the 'shouldInclude' group is the only selected option.
-     *
-     * @param currentState The current checked state of the checkbox.
+     * Check whether a checkbox option is the only selected option.
      *
      * @returns {boolean} True if the checkbox should not be allowed to be deselected by the user.
      */
     function shouldNotDeselect(currentState) {
-        let checkboxesSelected = selectionCount();
+        let checkboxesSelected = characterOptions.numberSelected();
         return currentState === true && checkboxesSelected === 1
     }
 
-    const numSelected = selectionCount();
-    let allowedPasswordLength;
-    if (passwordLength < numSelected) {
-        allowedPasswordLength = selectionCount();
-    } else {
-        allowedPasswordLength = passwordLength;
-    }
+    let allowedPasswordLength = passwordLength < characterOptions.numberSelected() ?
+        characterOptions.numberSelected() : passwordLength;
 
     return (
         <div className={`${PRIMARY_CLASS} background-standard`}>
@@ -82,38 +62,35 @@ export default function PasswordOptions({onGeneratePassword}) {
             <Spacer primarySpacerType={SPACER_TYPE.LARGE}/>
             <CustomCheckbox
                 labelText='Include Uppercase Letters'
-                isSelected={shouldIncludeUpperCase}
-                isStateLocked={shouldNotDeselect(shouldIncludeUpperCase)}
-                onCheckChange={setShouldIncludeUpperCase}
+                isSelected={characterOptions.shouldUseUpperCase}
+                isStateLocked={shouldNotDeselect(characterOptions.shouldUseUpperCase)}
+                onCheckChange={(newValue) => setCharacterOptions(characterOptions.adjustUpperCase(newValue))}
             />
             <Spacer primarySpacerType={SPACER_TYPE.MEDIUM} mobileSpacerType={SPACER_TYPE.SMALL}/>
             <CustomCheckbox
                 labelText='Include Lowercase Letters'
-                isSelected={shouldIncludeLowerCase}
-                isStateLocked={shouldNotDeselect(shouldIncludeLowerCase)}
-                onCheckChange={setShouldIncludeLowerCase}
+                isSelected={characterOptions.shouldUseLowerCase}
+                isStateLocked={shouldNotDeselect(characterOptions.shouldUseLowerCase)}
+                onCheckChange={(newValue) => setCharacterOptions(characterOptions.adjustLowerCase(newValue))}
             />
             <Spacer primarySpacerType={SPACER_TYPE.MEDIUM} mobileSpacerType={SPACER_TYPE.SMALL}/>
             <CustomCheckbox
                 labelText='Include Numbers'
-                isSelected={shouldIncludeNumbers}
-                isStateLocked={shouldNotDeselect(shouldIncludeNumbers)}
-                onCheckChange={setShouldIncludeNumbers}
+                isSelected={characterOptions.shouldUseNumbers}
+                isStateLocked={shouldNotDeselect(characterOptions.shouldUseNumbers)}
+                onCheckChange={(newValue) => setCharacterOptions(characterOptions.adjustNumbers(newValue))}
             />
             <Spacer primarySpacerType={SPACER_TYPE.MEDIUM} mobileSpacerType={SPACER_TYPE.SMALL}/>
             <CustomCheckbox
                 labelText='Include Symbols'
-                isSelected={shouldIncludeSymbols}
-                isStateLocked={shouldNotDeselect(shouldIncludeSymbols)}
-                onCheckChange={setShouldIncludeSymbols}
+                isSelected={characterOptions.shouldUseSymbols}
+                isStateLocked={shouldNotDeselect(characterOptions.shouldUseSymbols)}
+                onCheckChange={(newValue) => setCharacterOptions(characterOptions.adjustSymbols(newValue))}
             />
             <Spacer primarySpacerType={SPACER_TYPE.LARGE}/>
             <StrengthState
                 length={allowedPasswordLength}
-                lowercase={shouldIncludeLowerCase}
-                uppercase={shouldIncludeUpperCase}
-                symbols={shouldIncludeSymbols}
-                numbers={shouldIncludeNumbers}
+                characterOptions={characterOptions}
             />
             <Spacer primarySpacerType={SPACER_TYPE.LARGE} mobileSpacerType={SPACER_TYPE.SMALL}/>
             <IconButton

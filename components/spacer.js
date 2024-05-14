@@ -15,10 +15,7 @@ export const SPACER_TYPE = {
  * @returns {JSX.Element}
  */
 export default function Spacer({primarySpacerType, mobileSpacerType}) {
-    let mSpacer = mobileSpacerType;
-    if (!mSpacer) {
-        mSpacer = primarySpacerType;
-    }
+    let mSpacer = mSpacer ? mSpacer : primarySpacerType;
 
     return (
         <>

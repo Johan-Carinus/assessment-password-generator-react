@@ -33,10 +33,7 @@ export default function ValueSlider({title, minValue, maxValue, currentValue, on
         '--slide-position': calculateSliderPercentage()
     };
 
-    let isTouchedClass = '';
-    if (isTouched) {
-        isTouchedClass = 'touched';
-    }
+    let isTouchedClass = isTouched ? 'touched' : '';
 
     return (
         <div style={sliderPositionCssVariable} className={PRIMARY_CLASS}>
