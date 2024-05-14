@@ -26,22 +26,55 @@ export default class CharacterOptions {
         return this.useSymbols;
     }
 
+    /**
+     * Create a new CharacterOptions object with an updated lowercase value.
+     *
+     * @param shouldUse The new lowercase value to use.
+     *
+     * @returns {CharacterOptions} The newly generated CharacterOptions object.
+     */
     adjustLowerCase(shouldUse) {
         return new CharacterOptions(shouldUse, this.useUpperCase, this.useNumbers, this.useSymbols);
     }
 
+    /**
+     * Create a new CharacterOptions object with an updated uppercase value.
+     *
+     * @param shouldUse The new uppercase value to use.
+     *
+     * @returns {CharacterOptions} The newly generated CharacterOptions object.
+     */
     adjustUpperCase(shouldUse) {
         return new CharacterOptions(this.useLowerCase, shouldUse, this.useNumbers, this.useSymbols);
     }
 
+    /**
+     * Create a new CharacterOptions object with an updated numbers value.
+     *
+     * @param shouldUse The new numbers value to use.
+     *
+     * @returns {CharacterOptions} The newly generated CharacterOptions object.
+     */
     adjustNumbers(shouldUse) {
         return new CharacterOptions(this.useLowerCase, this.useUpperCase, shouldUse, this.useSymbols);
     }
 
+    /**
+     * Create a new CharacterOptions object with an updated symbols value.
+     *
+     * @param shouldUse The new symbols value to use.
+     *
+     * @returns {CharacterOptions} The newly generated CharacterOptions object.
+     */
     adjustSymbols(shouldUse) {
         return new CharacterOptions(this.useLowerCase, this.useUpperCase, this.useNumbers, shouldUse);
     }
 
+    /**
+     * Calculates how many of the options are selected for the current CharacterOptions object.
+     *
+     * @returns {number}
+     */
     numberSelected() {
         let count = 0;
         if (this.useLowerCase) count++;

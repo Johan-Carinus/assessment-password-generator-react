@@ -22,8 +22,8 @@ export default function PasswordOptions({onGeneratePassword}) {
     const [characterOptions, setCharacterOptions] = useState(
         new CharacterOptions(
             true,
-            false,
-            false,
+            true,
+            true,
             false)
     );
 

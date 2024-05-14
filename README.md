@@ -26,3 +26,7 @@ npm run dev
 
 You can then open [http://localhost:3000](http://localhost:3000) with your choice of browser to access the app. During development the app 
 was mostly tested in Google Chrome in both standard and reactive mode.
+
+## App Demos
+
+There are video examples of the app in operation. You can view them in the demo folder.
