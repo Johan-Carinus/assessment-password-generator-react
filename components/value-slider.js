@@ -60,6 +60,9 @@ export default function ValueSlider({title, minValue, maxValue, currentValue, on
                     onTouchStart={() => {setIsTouched(true)}}
                     onTouchEnd={() => {setIsTouched(false)}}
                     onClick={() => slideRef.current.blur()}
+                    onMouseDown={() => setIsTouched(true)}
+                    onMouseUp={() => setIsTouched(false)}
+                    onMouseLeave={() => setIsTouched(false)}
                 />
             </div>
         </div>

@@ -33,7 +33,7 @@ $checkbox-size: 20px;
   margin: 0;
 }
 
-.custom-checkbox input[type=checkbox]:focus {
+.custom-checkbox input[type=checkbox]:not(.touched):focus {
   @include focus-outline($border-thickness, $color-neon-green);
 }
 

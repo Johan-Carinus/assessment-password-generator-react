@@ -20,6 +20,7 @@ const PASSWORD_EXAMPLE = 'P4$5W0rD!';
 export default function PasswordField({password}) {
     const [copiedPassword, setCopiedPassword] = useState();
     const [isTouched, setIsTouched] = useState(false);
+    const [isButtonTouched, setIsButtonTouched] = useState(false);
     const buttonRef = useRef(null);
 
     /**
@@ -43,6 +44,7 @@ export default function PasswordField({password}) {
     let copiedText;
     let currentPassword = password;
     let isTouchedClass = '';
+    let isButtonTouchedClass = '';
 
     if (!currentPassword || currentPassword.length === 0) {
         currentPassword = PASSWORD_EXAMPLE;
@@ -62,6 +64,9 @@ export default function PasswordField({password}) {
     if (isTouched) {
         isTouchedClass = 'touched';
     }
+    if (isButtonTouched) {
+        isButtonTouchedClass = 'button-touched';
+    }
 
     return (
         <div
@@ -78,11 +83,14 @@ export default function PasswordField({password}) {
             </div>
             <button
                 ref={buttonRef}
-                className='focus-button'
+                className={`${isButtonTouchedClass} focus-button`}
                 onClick={() => {
                     buttonRef.current.blur();
                     handleCopyPasswordEvent(currentPassword);
                 }}
+                onMouseDown={() => setIsButtonTouched(true)}
+                onMouseUp={() => setIsButtonTouched(false)}
+                onMouseLeave={() => setIsButtonTouched(false)}
             >
                 <Image
                     src={COPY_LOGO_PATH}

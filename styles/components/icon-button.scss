@@ -19,7 +19,7 @@ $icon-size: calc($font-size-body * 0.7);
   cursor: pointer;
 }
 
-.icon-button button:focus {
+.icon-button button:not(.icon-button .touched):focus {
   @include focus-outline($border-thickness, $color-neon-green);
 }
 

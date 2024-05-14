@@ -62,15 +62,16 @@ $track-height: 8px;
   @include slider-track($color-very-dark-grey, $track-height);
 }
 
-input[type="range"]:focus {
+.value-slider input[type="range"]:focus {
   outline: none;
 }
 
-input[type="range"]:focus::-webkit-slider-thumb {
+
+.value-slider input[type="range"]:not(.touched):focus::-webkit-slider-thumb {
   @include focus-outline($border-thickness, $color-neon-green);
 }
 
-input[type="range"]:focus::-moz-range-thumb {
+.value-slider input[type="range"]:not(.touched):focus::-moz-range-thumb {
   @include focus-outline($border-thickness, $color-neon-green);
 }
 

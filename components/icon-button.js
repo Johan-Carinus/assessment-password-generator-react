@@ -33,8 +33,11 @@ export default function IconButton({buttonText, icon, onClick}) {
                     buttonRef.current.blur();
                     onClick();
                 }}
-                onTouchStart={() => {setIsTouched(true)}}
-                onTouchEnd={() => {setIsTouched(false)}}
+                onTouchStart={() => setIsTouched(true)}
+                onTouchEnd={() => setIsTouched(false)}
+                onMouseDown={() => setIsTouched(true)}
+                onMouseUp={() => setIsTouched(false)}
+                onMouseLeave={() => setIsTouched(false)}
             >
                 <div>
                     {buttonText.toUpperCase()}
