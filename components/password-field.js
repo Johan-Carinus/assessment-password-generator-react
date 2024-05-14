@@ -48,7 +48,7 @@ export default function PasswordField({password}) {
     let copiedText = copiedPassword === currentPassword ? 'COPIED' : '';
 
     let isTouchedClass = isTouched ? 'touched' : '';
-    let isCopyButtonTouchedClass = isTouched ? 'copy-button-touched' : '';
+    let isCopyButtonTouchedClass = isCopyButtonTouched ? 'copy-button-touched' : '';
 
     return (
         <div
